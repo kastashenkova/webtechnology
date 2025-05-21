@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Форма для додавання викладача">
+    <meta name="author" content="Катерина Асташенкова">
+
+    <title>Додавання викладача</title>
+
+<body style="background-color: aqua;">
+
+    <h1 style="text-align: center;">Форма для додавання викладача</h1>
+
+    <form>
+
+        <label for="bgcolor">Оберіть колір:</label><br>
+        <input type="color" id="bgcolor" name="bgcolor"><br><br>
+
+        <label for="name">Повне ім'я:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="gender">Стать:</label>
+        <select id="gender" name="gender">
+            <option value="male">Чоловік</option>
+            <option value="female">Жінка</option>
+            <option value="other">Інше</option>
+        </select><br><br>
+
+        <label for="dayofbirth">Дата народження:</label><br>
+        <input type="date" id="dayofbirth" name="dayofbirth" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="number">Телефон:</label><br>
+        <input type="tel" id="number" name="number" required><br><br>
+
+        <label for="country">Країна:</label><br>
+        <input type="text" id="country" name="country" required><br><br>
+
+        <label for="city">Місто:</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+      
+        <label for="comment">Коментар:</label><br>
+        <textarea id="comment" name="comment"></textarea><br><br>
+
+        <br><br><button>Надіслати</button>
+      
+    </form>
+</body>
+
+</html>
