@@ -60,7 +60,7 @@ body {
 }
 
 .add-item-section .add-button {
-    background-color: #4CAF50; /* Зелений колір */
+    background-color: #3463ff;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -71,7 +71,7 @@ body {
 }
 
 .add-item-section .add-button:hover {
-    background-color: #45a049;
+    background-color: #3463ff;
 }
 
 /* Стилі для рядків товарів у лівій колонці */
@@ -141,12 +141,12 @@ body {
     align-items: center;
 }
 
-.quantity-minus {
-    background-color: #dc3545; /* Червона */
+.quantity-minus-first {
+    background-color: #dc3545;
 }
 
-.quantity-minus:hover {
-    background-color: #c82333;
+.quantity-minus-second {
+    background-color: #ffa6af;
 }
 
 .quantity-plus {
@@ -166,26 +166,26 @@ body {
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
-    color: white;
+    color: #333;
     cursor: pointer;
     font-size: 0.9em;
     white-space: nowrap; /* Щоб текст кнопки не переносився */
 }
 
 .status-button.not-bought {
-    background-color: #6c757d; /* Сірий */
+    background-color: #e5e2e2; /* Сірий */
 }
 
 .status-button.not-bought:hover {
-    background-color: #5a6268;
+    background-color: #e5e2e2;
 }
 
 .status-button.bought {
-    background-color: #007bff; /* Синій */
+    background-color: #e5e2e2; /* Синій */
 }
 
 .status-button.bought:hover {
-    background-color: #0056b3;
+    background-color: #e5e2e2;
 }
 
 .delete-button {
@@ -207,7 +207,7 @@ body {
 /* Права колонка - секції */
 .section-block h3 {
     color: #333;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e5e2e2;
     padding-bottom: 10px;
     margin-top: 0;
     margin-bottom: 15px;
@@ -222,10 +222,10 @@ body {
 }
 
 .status-badge {
-    background-color: #6c757d; /* Сірий за замовчуванням */
-    color: white;
+    background-color: #e5e2e2; /* Сірий за замовчуванням */
+    color: #333;
     padding: 6px 12px;
-    border-radius: 20px; /* Овальна форма */
+    border-radius: 5px; /* Овальна форма */
     font-size: 0.9em;
     display: flex;
     align-items: center;
@@ -233,7 +233,7 @@ body {
 }
 
 .status-badge .badge-qty {
-    background-color: #4CAF50; /* Зелений фон для кількості */
+    background-color: #ff8800; /* Зелений фон для кількості */
     color: white;
     width: 20px;
     height: 20px;
@@ -246,18 +246,18 @@ body {
 }
 
 .status-badge.remaining {
-    background-color: #007bff; /* Синій для "Залишилося" */
+    background-color: #e5e2e2;
 }
 
 .status-badge.bought {
-    background-color: #28a745; /* Зелений для "Куплено" */
+    background-color: #e5e2e2; 
 }
 
 /* 4. Колонки: Адаптивність */
-@media (max-width: 768px) { /* Змінив breakpoint на 768px для кращої мобільної адаптивності */
+@media (max-width: 768px) { 
     .container {
         flex-direction: column;
-        padding: 10px; /* Менший padding на малих екранах */
+        padding: 10px;
     }
 
     .left-column,
@@ -452,7 +452,7 @@ body {
 /* При наведенні: показуємо підказку */
 [data-tooltip]:hover::before,
 [data-tooltip]:hover::after {
-    transform: translateX(-50%) scale(1); /* Збільшуємо до повного розміру */
+    transform: translateX(-50%) scale(0.8); /* Збільшуємо до повного розміру */
     opacity: 1;
 }
 

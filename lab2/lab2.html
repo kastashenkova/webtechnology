@@ -12,27 +12,31 @@
         <section class="left-column column">
             <div class="add-item-section">
                 <input type="text" placeholder="Назва товару">
-                <button class="add-button" data-tooltip="Додати новий товар">Додати</button>
+                <button class="add-button" data-tooltip="Додати новий товар"><b>Додати</b></button>
             </div>
 
             <ul class="item-list">
-                <li class="item-row">
-                    <span class="item-name-input">Помідори</span>
-                    <span class="item-quantity-display">2</span>
+				
+				<li class="item-row">
+                    <span class="item-name-display"><s>Помідори</s></span>
+                    <div class="quantity-controls">
+                        <span class="item-quantity-display">2</span>
+                    </div>
                     <div class="item-actions">
-                        <button class="status-button not-bought" data-tooltip="Змінити статус товару">Не куплено</button>
-                        </div>
+                        <button class="status-button bought" data-tooltip="Змінити статус товару"><b>Не куплено</b></button>
+                    </div>
                 </li>
+
 
                 <li class="item-row">
                     <span class="item-name-display">Печиво</span>
                     <div class="quantity-controls">
-                        <button class="quantity-minus" data-tooltip="Зменшити кількість">-</button>
+                        <button class="quantity-minus-first" data-tooltip="Зменшити кількість">-</button>
                         <span class="item-quantity-display">2</span>
                         <button class="quantity-plus" data-tooltip="Збільшити кількість">+</button>
                     </div>
                     <div class="item-actions">
-                        <button class="status-button bought" data-tooltip="Змінити статус товару">Куплено</button>
+                        <button class="status-button bought" data-tooltip="Змінити статус товару"><b>Куплено</b></button>
                         <button class="delete-button" data-tooltip="Видалити товар">&times;</button>
                     </div>
                 </li>
@@ -40,12 +44,12 @@
                 <li class="item-row">
                     <input type="text" class="item-name-input" value="Сир">
                     <div class="quantity-controls">
-                        <button class="quantity-minus" data-tooltip="Зменшити кількість">-</button>
+                        <button class="quantity-minus-second" data-tooltip="Неможливо зменшити кількість">-</button>
                         <span class="item-quantity-display">1</span>
                         <button class="quantity-plus" data-tooltip="Збільшити кількість">+</button>
                     </div>
                     <div class="item-actions">
-                        <button class="status-button bought" data-tooltip="Змінити статус товару">Куплено</button>
+                        <button class="status-button bought" data-tooltip="Змінити статус товару"><b>Куплено</b></button>
                         <button class="delete-button" data-tooltip="Видалити товар">&times;</button>
                     </div>
                 </li>
@@ -56,15 +60,15 @@
             <div class="section-block">
                 <h3>Залишилося</h3>
                 <div class="badges-container">
-                    <span class="status-badge remaining">Печиво <span class="badge-qty">2</span></span>
-                    <span class="status-badge remaining">Сир <span class="badge-qty">1</span></span>
+                    <span class="status-badge remaining"><b>Печиво</b><span class="badge-qty">2</span></span>
+                    <span class="status-badge remaining"><b>Сир</b><span class="badge-qty">1</span></span>
                 </div>
             </div>
 
             <div class="section-block">
                 <h3>Куплено</h3>
                 <div class="badges-container">
-                    <span class="status-badge bought">Помідори <span class="badge-qty">2</span></span>
+                    <span class="status-badge bought"><b><s>Помідори</s></b><span class="badge-qty"><s>2</s></span></span>
                 </div>
             </div>
         </section>
