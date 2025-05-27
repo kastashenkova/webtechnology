@@ -1,0 +1,465 @@
+/* Базові стилі */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #bcbbbb;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Вирівнювання зверху */
+    min-height: 100vh;
+    box-sizing: border-box; /* Враховувати padding у розмірах */
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 0;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.column {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 300px; /* Мінімальна ширина для колонок */
+}
+
+.left-column {
+    flex-basis: 65%; /* Ліва колонка ширша */
+}
+
+.right-column {
+    flex-basis: 30%; /* Права колонка вужча */
+}
+
+/* Секція додавання товару */
+.add-item-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+.add-item-section input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.add-item-section .add-button {
+    background-color: #4CAF50; /* Зелений колір */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.add-item-section .add-button:hover {
+    background-color: #45a049;
+}
+
+/* Стилі для рядків товарів у лівій колонці */
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-row:last-child {
+    border-bottom: none;
+}
+
+.item-name-input {
+    flex-grow: 1;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95em;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.item-name-display { /* Для статичного тексту, що не є інпутом */
+    flex-grow: 1;
+    padding: 5px 0;
+    font-size: 0.95em;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.item-quantity-display {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    margin: 0 5px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Круглі кнопки */
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-minus {
+    background-color: #dc3545; /* Червона */
+}
+
+.quantity-minus:hover {
+    background-color: #c82333;
+}
+
+.quantity-plus {
+    background-color: #28a745; /* Зелена */
+}
+
+.quantity-plus:hover {
+    background-color: #218838;
+}
+
+.item-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.status-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    white-space: nowrap; /* Щоб текст кнопки не переносився */
+}
+
+.status-button.not-bought {
+    background-color: #6c757d; /* Сірий */
+}
+
+.status-button.not-bought:hover {
+    background-color: #5a6268;
+}
+
+.status-button.bought {
+    background-color: #007bff; /* Синій */
+}
+
+.status-button.bought:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #dc3545; /* Червоний */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 1; /* Для кращого центрування X */
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Права колонка - секції */
+.section-block h3 {
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    background-color: #6c757d; /* Сірий за замовчуванням */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px; /* Овальна форма */
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Проміжок між назвою та кількістю */
+}
+
+.status-badge .badge-qty {
+    background-color: #4CAF50; /* Зелений фон для кількості */
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.status-badge.remaining {
+    background-color: #007bff; /* Синій для "Залишилося" */
+}
+
+.status-badge.bought {
+    background-color: #28a745; /* Зелений для "Куплено" */
+}
+
+/* 4. Колонки: Адаптивність */
+@media (max-width: 768px) { /* Змінив breakpoint на 768px для кращої мобільної адаптивності */
+    .container {
+        flex-direction: column;
+        padding: 10px; /* Менший padding на малих екранах */
+    }
+
+    .left-column,
+    .right-column {
+        flex-basis: auto; /* Повна ширина */
+        width: 100%;
+    }
+
+    .add-item-section {
+        flex-direction: column;
+    }
+
+    .add-item-section input,
+    .add-item-section button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* 1. Бейдж */
+.badge-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    z-index: 1000;
+}
+
+.badge {
+    background-color: #a82eff; /* Темно-фіолетовий */
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.5s ease, padding-bottom 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    position: relative;
+}
+
+.badge-text {
+    white-space: nowrap;
+}
+
+.badge-hidden-text {
+    opacity: 0;
+    font-size: 0.75em;
+    position: absolute;
+    bottom: -60px; /* Збільшено негативне значення для приховування */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.5s ease, bottom 0.5s ease;
+    color: white;
+    white-space: nowrap;
+    padding: 0 15px;
+    display: flex;
+    gap: 15px;
+}
+
+/* 2. Анімація бейджу */
+.badge:hover {
+    background-color: #651eff;
+    padding-bottom: 60px; /* Збільшуємо нижній відступ, щоб розширити бейдж */
+}
+
+.badge:hover .badge-hidden-text {
+    opacity: 1;
+    bottom: 10px; /* Піднімаємо прихований текст до видимої зони */
+}
+
+/* 3. Друк бейджу */
+@media print {
+    .badge {
+        background-color: white !important;
+        font-size: 0.5em;
+        color: #4b0082 !important;
+        border: 2px solid #4b0082;
+        box-shadow: none;
+        height: auto !important;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .badge-text {
+        visibility: hidden;
+        position: relative;
+    }
+
+    .badge-text::after {
+        content: "Kateryna";
+        visibility: visible;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        color: #4b0082;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .badge-hidden-text {
+        display: none; /* Приховуємо прихований текст при друці */
+    }
+
+    /* Приховуємо інші елементи, що не потрібні при друці */
+    .add-item-section, .item-actions, .status-button, .delete-button, .quantity-controls {
+        display: none;
+    }
+
+    /* Можливі стилі для надрукованого списку */
+    .item-list li {
+        border-bottom: 1px solid #ddd;
+        padding: 5px 0;
+        display: flex; /* Переконатися, що вони відображаються як блоки */
+        justify-content: space-between;
+    }
+    .item-list .item-name-input,
+    .item-list .item-name-display {
+        border: none;
+        padding: 0;
+        font-size: 1em; /* Забезпечити читабельний розмір */
+        color: #333;
+    }
+    .item-list .item-quantity-display {
+        color: #333;
+        font-size: 1em;
+    }
+
+    .status-badge {
+        background-color: #eee !important;
+        color: #333 !important;
+        border: 1px solid #ccc;
+    }
+    .status-badge .badge-qty {
+        background-color: #ccc !important;
+        color: #333 !important;
+    }
+}
+
+/* 5. Tooltip */
+[data-tooltip] {
+    position: relative;
+}
+
+/* Основа підказки */
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px); /* Вище кнопки на 10px */
+    left: 50%;
+    transform: translateX(-50%) scale(0); /* Початковий розмір 0 */
+    transform-origin: bottom center; /* З'являється знизу */
+    background-color: #4b0082; /* Фіолетовий фон */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px; /* Круглі кути */
+    white-space: nowrap; /* Текст не переноситься */
+    font-size: 0.9em;
+    opacity: 0; /* Спочатку невидимий */
+    pointer-events: none; /* Не блокує кліки */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Плавна поява */
+    z-index: 100; /* Над іншими елементами */
+}
+
+/* Трикутник підказки */
+[data-tooltip]::after {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Дотикається до нижнього краю підказки */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    border: 5px solid transparent;
+    border-top-color: #4b0082; /* Фіолетовий трикутник */
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    z-index: 100;
+}
+
+/* При наведенні: показуємо підказку */
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after {
+    transform: translateX(-50%) scale(1); /* Збільшуємо до повного розміру */
+    opacity: 1;
+}
+
+/* Прибираємо курсор: ховаємо підказку */
+[data-tooltip]:not(:hover)::before,
+[data-tooltip]:not(:hover)::after {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Швидше ховаємо */
+}
