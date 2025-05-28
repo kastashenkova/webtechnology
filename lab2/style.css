@@ -314,7 +314,7 @@ body {
 
 .badge-hidden-text {
     opacity: 0;
-    font-size: 0.75em;
+    font-size: 0.85em;
     position: absolute;
     bottom: -60px; /* Збільшено негативне значення для приховування */
     left: 50%;
