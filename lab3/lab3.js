@@ -36,7 +36,7 @@ function renderShoppingList() {
         nameInput.type = 'text';
         nameInput.value = item.name;
         nameInput.className = `item-name-input ${item.isBought ? 'line-through' : ''}`;
-        nameInput.readOnly = item.isBought; // Make read-only if bought
+        nameInput.readOnly = item.isBought;
         nameInput.addEventListener('change', (e) => {
             item.name = e.target.value;
             renderShoppingList(); // Re-render to update badges if name changes
@@ -112,6 +112,11 @@ function renderShoppingList() {
         listItem.appendChild(itemActions);
 
         itemListContainer.appendChild(listItem);
+
+        if (index < shoppingList.length - 1) {
+            const hrElement = document.createElement('hr');
+            itemListContainer.appendChild(hrElement);
+        }
 
         // Render badges
         const badge = document.createElement('span');
