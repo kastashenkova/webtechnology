@@ -58,6 +58,10 @@ hr {
     padding-bottom: 20px;
 }
 
+.crossed {
+    text-decoration: line-through;
+}
+
 .add-item-section input[type="text"] {
     flex-grow: 1;
     padding: 10px 12px;
@@ -381,10 +385,6 @@ hr {
     }
 
     .badge-hidden-text {
-        display: none;
-    }
-
-    .add-item-section, .item-actions, .status-button, .delete-button, .quantity-controls {
         display: none;
     }
 
