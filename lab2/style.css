@@ -6,19 +6,18 @@ body {
     background-color: #bcbbbb;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Вирівнювання зверху */
+    align-items: flex-start;
     min-height: 100vh;
     box-sizing: border-box; /* Враховувати padding у розмірах */
 }
 
 hr {
     border: none;
-    border-top: 1px solid #e8e6e6; /* Light gray line */
-    margin-top: 10px; /* Відступ зверху від попереднього блоку */
-    margin-bottom: 10px; /* Відступ знизу до наступного блоку */
-    /* Нові властивості для розтягування від краю до краю */
-    margin-left: -20px; /* Компенсуємо padding лівої колонки */
-    margin-right: -20px; /* Компенсуємо padding правої колонки */
+    border-top: 1px solid #e8e6e6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 
 .container {
@@ -41,15 +40,15 @@ hr {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     flex-grow: 1;
-    min-width: 300px; /* Мінімальна ширина для колонок */
+    min-width: 300px;
 }
 
 .left-column {
-    flex-basis: 65%; /* Ліва колонка ширша */
+    flex-basis: 65%;
 }
 
 .right-column {
-    flex-basis: 30%; /* Права колонка вужча */
+    flex-basis: 30%;
 }
 
 /* Секція додавання товару */
@@ -57,6 +56,10 @@ hr {
     display: flex;
     margin-bottom: 20px;
     padding-bottom: 20px;
+}
+
+.crossed {
+    text-decoration: line-through;
 }
 
 .add-item-section input[type="text"] {
@@ -73,14 +76,12 @@ hr {
     padding: 13px 23px;
     cursor: pointer;
     font-size: 1.3em;
-    transition: background-color 0.5s ease;
 }
 
 .add-item-section .add-button:hover {
     background-color: #3a7bfd;
 }
 
-/* Стилі для рядків товарів у лівій колонці */
 .item-list {
     list-style: none;
     padding: 0;
@@ -102,19 +103,18 @@ hr {
     flex-grow: 1;
     max-width: 23%;
     padding: 5px 8px;
-    border: 1px solid #ffffff; /* Рамка за замовчуванням біла */
+    border: 1px solid #ffffff;
     border-radius: 4px;
     font-size: 0.95em;
     margin-right: 10px;
     box-sizing: border-box;
-    outline: none; /* Прибираємо стандартну рамку браузера */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Додаємо плавний перехід */
+    outline: none;
 }
 
 /* Стилі при фокусі (натисканні) */
 .item-name-input:focus {
-    border-color: #34b5ff; /* Колір рамки стає синім */
-    box-shadow: 0 0 0 2px rgba(30, 135, 255, 0.782); /* Додаємо легку синю тінь */
+    border-color: #34b5ff;
+    box-shadow: 0 0 0 2px rgba(30, 135, 255, 0.782);
 }
 
 .item-quantity-display {
@@ -123,8 +123,8 @@ hr {
     font-weight: bold;
     font-size: 1.1em;
     margin: 0 5px;
-    background-color: #e5e2e2; /* Сірий фон, як було */
-    color: #333; /* Темний текст, як було */
+    background-color: #e5e2e2;
+    color: #333;
     padding: 4px 4px;
     border-radius: 4px;
     display: inline-block;
@@ -134,15 +134,15 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 90px; /* Залишаємо, як є, для збереження вертикального стовпчика */
-    gap: 5px; /* Залишаємо, як є */
+    min-width: 90px;
+    gap: 5px;
 }
 
 
 .quantity-controls button {
     width: 30px;
     height: 30px;
-    border-radius: 50%; /* Круглі кнопки */
+    border-radius: 50%;
     border: none;
     font-size: 1.2em;
     font-weight: bold;
@@ -152,7 +152,7 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0; /* Запобігаємо зменшенню розміру кнопок */
+    flex-shrink: 0;
 }
 
 .quantity-minus-first {
@@ -164,7 +164,7 @@ hr {
 }
 
 .quantity-plus {
-    background-color: #28a745; /* Зелена */
+    background-color: #28a745;
 }
 
 .quantity-plus:hover {
@@ -174,7 +174,7 @@ hr {
 .item-actions {
     display: flex;
     gap: 5px;
-    justify-content: flex-end; /* Вирівнюємо кнопки дій до правого краю */
+    justify-content: center;
     flex-shrink: 0;
 }
 
@@ -185,11 +185,11 @@ hr {
     color: #333;
     cursor: pointer;
     font-size: 0.9em;
-    white-space: nowrap; /* Щоб текст кнопки не переносився */
+    white-space: nowrap;
 }
 
 .status-button.not-bought {
-    background-color: #e5e2e2; /* Сірий */
+    background-color: #e5e2e2;
 }
 
 .status-button.not-bought:hover {
@@ -197,7 +197,7 @@ hr {
 }
 
 .status-button.bought {
-    background-color: #e5e2e2; /* Сірий, як було */
+    background-color: #e5e2e2;
 }
 
 .status-button.bought:hover {
@@ -205,7 +205,7 @@ hr {
 }
 
 .delete-button {
-    background-color: #dc3545; /* Червоний */
+    background-color: #dc3545;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -213,14 +213,14 @@ hr {
     cursor: pointer;
     font-size: 0.9em;
     font-weight: bold;
-    line-height: 1; /* Для кращого центрування X */
+    line-height: 1;
 }
 
 .delete-button:hover {
     background-color: #c82333;
 }
 
-/* Права колонка - секції */
+/* Права колонка — секції */
 .section-block h3 {
     color: #333;
     padding-bottom: 10px;
@@ -237,18 +237,18 @@ hr {
 }
 
 .status-badge {
-    background-color: #e5e2e2; /* Сірий за замовчуванням */
+    background-color: #e5e2e2;
     color: #333;
     padding: 6px 12px;
-    border-radius: 5px; /* Овальна форма */
+    border-radius: 5px;
     font-size: 0.9em;
     display: flex;
     align-items: center;
-    gap: 5px; /* Проміжок між назвою та кількістю */
+    gap: 5px;
 }
 
 .status-badge .badge-qty {
-    background-color: #ff8800; /* Помаранчевий фон для кількості */
+    background-color: #ff8800;
     color: white;
     width: 20px;
     height: 20px;
@@ -277,7 +277,7 @@ hr {
 
     .left-column,
     .right-column {
-        flex-basis: auto; /* Повна ширина */
+        flex-basis: auto;
         width: 100%;
     }
 
@@ -301,7 +301,7 @@ hr {
 }
 
 .badge {
-    background-color: #a82eff; /* Темно-фіолетовий */
+    background-color: #a82eff;
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -331,7 +331,7 @@ hr {
     opacity: 0;
     font-size: 0.85em;
     position: absolute;
-    bottom: -60px; /* Збільшено негативне значення для приховування */
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
     transition: opacity 0.5s ease, bottom 0.5s ease;
@@ -345,23 +345,23 @@ hr {
 /* 2. Анімація бейджу */
 .badge:hover {
     background-color: #651eff;
-    padding-bottom: 60px; /* Збільшуємо нижній відступ, щоб розширити бейдж */
+    padding-bottom: 60px;
 }
 
 .badge:hover .badge-hidden-text {
     opacity: 1;
-    bottom: 10px; /* Піднімаємо прихований текст до видимої зони */
+    bottom: 10px;
 }
 
 /* 3. Друк бейджу */
 @media print {
     .badge {
-        background-color: white !important;
+        background-color: white;
         font-size: 0.5em;
-        color: #4b0082 !important;
+        color: #4b0082;
         border: 2px solid #4b0082;
         box-shadow: none;
-        height: auto !important;
+        height: auto;
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -385,25 +385,20 @@ hr {
     }
 
     .badge-hidden-text {
-        display: none; /* Приховуємо прихований текст при друці */
-    }
-
-    /* Приховуємо інші елементи, що не потрібні при друці */
-    .add-item-section, .item-actions, .status-button, .delete-button, .quantity-controls {
         display: none;
     }
 
     /* Можливі стилі для надрукованого списку */
     .item-list li {
         padding: 5px 0;
-        display: flex; /* Переконатися, що вони відображаються як блоки */
+        display: flex;
         justify-content: space-between;
     }
     .item-list .item-name-input,
     .item-list .item-name-display {
         border: none;
         padding: 0;
-        font-size: 1em; /* Забезпечити читабельний розмір */
+        font-size: 1em;
         color: #333;
     }
     .item-list .item-quantity-display {
@@ -412,13 +407,13 @@ hr {
     }
 
     .status-badge {
-        background-color: #eee !important;
-        color: #333 !important;
+        background-color: #eee;
+        color: #333;
         border: 1px solid #ccc;
     }
     .status-badge .badge-qty {
-        background-color: #ccc !important;
-        color: #333 !important;
+        background-color: #ccc;
+        color: #333;
     }
 }
 
@@ -431,32 +426,32 @@ hr {
 [data-tooltip]::before {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 10px); /* Вище кнопки на 10px */
+    bottom: calc(100% + 10px);
     left: 50%;
-    transform: translateX(-50%) scale(0); /* Початковий розмір 0 */
-    transform-origin: bottom center; /* З'являється знизу */
-    background-color: #4b0082; /* Фіолетовий фон */
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    background-color: #4b0082;
     color: white;
     padding: 8px 12px;
-    border-radius: 8px; /* Круглі кути */
-    white-space: nowrap; /* Текст не переноситься */
+    border-radius: 8px;
+    white-space: nowrap;
     font-size: 0.9em;
-    opacity: 0; /* Спочатку невидимий */
-    pointer-events: none; /* Не блокує кліки */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Плавна поява */
-    z-index: 100; /* Над іншими елементами */
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    z-index: 100;
 }
 
 /* Трикутник підказки */
 [data-tooltip]::after {
     content: '';
     position: absolute;
-    bottom: 100%; /* Дотикається до нижнього краю підказки */
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%) scale(0);
     transform-origin: bottom center;
     border: 5px solid transparent;
-    border-top-color: #4b0082; /* Фіолетовий трикутник */
+    border-top-color: #4b0082;
     opacity: 0;
     pointer-events: none;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
@@ -466,7 +461,7 @@ hr {
 /* При наведенні: показуємо підказку */
 [data-tooltip]:hover::before,
 [data-tooltip]:hover::after {
-    transform: translateX(-50%) scale(0.8); /* Збільшуємо до повного розміру */
+    transform: translateX(-50%) scale(0.8);
     opacity: 1;
 }
 
@@ -475,5 +470,4 @@ hr {
 [data-tooltip]:not(:hover)::after {
     transform: translateX(-50%) scale(0);
     opacity: 0;
-    transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Швидше ховаємо */
 }
