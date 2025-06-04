@@ -84,7 +84,7 @@
 
         .badge-hidden-text {
             opacity: 0;
-            font-size: 0.85em;
+            font-size: 0.7em;
             position: absolute;
             bottom: -60px; /* Hidden below the visible part */
             left: 50%;
@@ -112,13 +112,13 @@
         @media print {
             .badge-wrapper {
                 position: fixed;
-                bottom: auto;
-                left: auto;
-                top: 1rem;
-                right: 1rem; /* Position badge at top-right for printing */
-                transform: none !important; /* Remove hover transform for print */
-                background-color: transparent; /* Ensure no background issues */
-                box-shadow: none; /* No shadow on print */
+                bottom: 1rem;
+                left: 1rem;
+                top: auto;
+                right: auto;
+                transform: none !important;
+                background-color: transparent;
+                box-shadow: none;
             }
 
             .badge {
@@ -145,7 +145,7 @@
                 transform: translate(-50%, -50%);
                 white-space: nowrap;
                 color: #4b0082;
-                font-size: 1.2em;
+                font-size: 0.9em;
                 font-weight: bold;
             }
 
