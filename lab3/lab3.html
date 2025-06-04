@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик покупок</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind CSS to use 'Inter' font and extend default theme
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        /* Custom styles for tooltips and general layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #bcbbbb; /* Match your desired body background */
+        }
+
+        /* Responsive columns for smaller screens */
+        @media (max-width: 650px) { /* Changed from 768px in your snippet to match previous logic */
+            .main-content-wrapper {
+                flex-direction: column;
+            }
+
+            .left-column,
+            .right-column {
+                flex-basis: auto;
+                width: 100%;
+            }
+
+            .add-item-section {
+                flex-direction: column;
+            }
+
+            .add-item-section input,
+            .add-item-section button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* 1. Бейдж */
+        .badge-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .badge {
+            background-color: #a82eff; /* Dark purple color for the badge */
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-top-left-radius: 10px; /* Rounded upper-left corner */
+            border-top-right-radius: 10px; /* Rounded upper-right corner */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            overflow: hidden;
+            transition: background-color 0.5s ease, padding-bottom 0.5s ease; /* Smooth transition for hover */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: auto;
+            position: relative;
+        }
+
+        .badge-text {
+            white-space: nowrap;
+        }
+
+        .badge-hidden-text {
+            opacity: 0;
+            font-size: 0.85em;
+            position: absolute;
+            bottom: -60px; /* Hidden below the visible part */
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.5s ease, bottom 0.5s ease; /* Animation for appearance */
+            color: white;
+            white-space: nowrap;
+            padding: 0 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* 2. Анімація бейджу */
+        .badge:hover {
+            background-color: #651eff; /* Darker purple on hover */
+            padding-bottom: 60px; /* Expands downwards to reveal hidden text */
+        }
+
+        .badge:hover .badge-hidden-text {
+            opacity: 1;
+            bottom: 10px; /* Moves up into view */
+        }
+
+        /* 3. Друк бейджу */
+        @media print {
+            .badge-wrapper {
+                position: fixed;
+                bottom: auto;
+                left: auto;
+                top: 1rem;
+                right: 1rem; /* Position badge at top-right for printing */
+                transform: none !important; /* Remove hover transform for print */
+                background-color: transparent; /* Ensure no background issues */
+                box-shadow: none; /* No shadow on print */
+            }
+
+            .badge {
+                background-color: white !important; /* White background for print */
+                color: #4b0082 !important; /* Retain purple text */
+                border: 2px solid #4b0082; /* Purple border */
+                box-shadow: none !important; /* No shadow on print */
+                height: auto;
+                padding: 10px 15px; /* Adjust padding for print */
+                transform: none !important; /* Remove hover transform */
+            }
+
+            .badge-text {
+                visibility: hidden; /* Hide 'Buy List' text on print */
+                position: relative;
+            }
+
+            .badge-text::after {
+                content: "KATERYNA"; /* Display your name */
+                visibility: visible;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                white-space: nowrap;
+                color: #4b0082;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+            .badge-hidden-text {
+                display: none !important; /* Hide hidden text on print */
+            }
+        }
+
+        /* Tooltip styles */
+        [data-tooltip] {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Основа підказки */
+        [data-tooltip]::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 10px); /* Position above the element with some gap */
+            left: 50%;
+            transform: translateX(-50%) scale(0.8); /* Scale down for initial hidden state */
+            transform-origin: bottom center;
+            background-color: #4b0082; /* Dark purple background for tooltip */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px; /* Rounded corners */
+            white-space: nowrap;
+            font-size: 0.9em;
+            opacity: 0; /* Initially hidden */
+            pointer-events: none; /* Allows clicks on element below */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transitions */
+            z-index: 100;
+        }
+
+        /* Трикутник підказки */
+        [data-tooltip]::after {
+            content: '';
+            position: absolute;
+            bottom: 100%; /* Position above the element */
+            left: 50%;
+            transform: translateX(-50%) scale(0.8); /* Scale down for initial hidden state */
+            transform-origin: bottom center;
+            border: 5px solid transparent;
+            border-top-color: #4b0082; /* Color of the triangle */
+            opacity: 0; /* Initially hidden */
+            pointer-events: none;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transitions */
+            z-index: 100;
+        }
+
+        /* При наведенні: показуємо підказку */
+        [data-tooltip]:hover::before,
+        [data-tooltip]:hover::after {
+            transform: translateX(-50%) scale(1); /* Scale up to full size */
+            opacity: 1; /* Fade in */
+        }
+
+        /* Specific styles for badge quantities to match example */
+        .status-badge .badge-qty {
+            background-color: #ff8800; /* Orange background for quantity */
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <main class="container flex flex-col lg:flex-row p-4 lg:p-8 gap-4 max-w-7xl mx-auto w-full main-content-wrapper">
+        <section class="left-column column flex-1 bg-white p-6 rounded-lg shadow-md">
+            <div class="add-item-section flex gap-2 mb-4">
+                <input type="text" id="newItemName" placeholder="Назва товару" class="flex-1 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="addItemButton" class="add-button px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 shadow-md" data-tooltip="Додати новий товар"><b>Додати</b></button>
+            </div>
+
+            <hr class="my-4 border-t border-gray-200">
+            <ul id="itemList" class="item-list list-none p-0 m-0">
+                </ul>
+        </section>
+
+        <section class="right-column column flex-1 bg-white p-6 rounded-lg shadow-md">
+            <div class="section-block mb-6">
+                <h3 class="text-xl font-semibold mb-3">Залишилося</h3>
+                <hr class="my-4 border-t border-gray-200">
+                <div id="remainingBadges" class="badges-container flex flex-wrap gap-2">
+                    </div>
+            </div>
+
+            <div class="section-block">
+                <h3 class="text-xl font-semibold mb-3">Куплено</h3>
+                <hr class="my-4 border-t border-gray-200">
+                <div id="boughtBadges" class="badges-container flex flex-wrap gap-2">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="badge-wrapper">
+        <div class="badge">
+            <span class="badge-text"><b>Buy List</b></span>
+            <span class="badge-hidden-text">
+                Created by:<br>KATERYNA
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // Array to store shopping list items
+        let shoppingList = [];
+
+        // DOM elements
+        const newItemNameInput = document.getElementById('newItemName');
+        const addItemButton = document.getElementById('addItemButton');
+        const itemListContainer = document.getElementById('itemList');
+        const remainingBadgesContainer = document.getElementById('remainingBadges');
+        const boughtBadgesContainer = document.getElementById('boughtBadges');
+
+        /**
+         * Saves the current shopping list to local storage.
+         */
+        function saveShoppingList() {
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        }
+
+        /**
+         * Renders the entire shopping list and updates the status badges.
+         */
+        function renderShoppingList() {
+            // Clear existing lists
+            itemListContainer.innerHTML = '';
+            remainingBadgesContainer.innerHTML = '';
+            boughtBadgesContainer.innerHTML = '';
+
+            // Iterate through shoppingList array to render items
+            shoppingList.forEach((item, index) => {
+                // Create list item (li) for each item
+                const listItem = document.createElement('li');
+                listItem.className = `item-row flex items-center gap-2 py-3 border-b border-gray-200 ${index === shoppingList.length - 1 ? 'last:border-b-0' : ''}`;
+                listItem.dataset.index = index; // Store index for easy access
+
+                // Item name input
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.value = item.name;
+                nameInput.className = `item-name-input flex-1 p-2 border border-transparent rounded-md focus:outline-none focus:border-gray-300 ${item.isBought ? 'line-through text-gray-500' : ''}`;
+                nameInput.readOnly = item.isBought; // Make read-only if bought
+                nameInput.addEventListener('change', (e) => {
+                    item.name = e.target.value;
+                    renderShoppingList(); // Re-render to update badges if name changes
+                });
+                // Add click listener to allow editing when not bought
+                nameInput.addEventListener('click', () => {
+                    if (!item.isBought) {
+                        nameInput.focus();
+                    }
+                });
+                listItem.appendChild(nameInput);
+
+                // Quantity controls
+                const quantityControls = document.createElement('div');
+                quantityControls.className = 'quantity-controls flex items-center gap-1';
+
+                if (!item.isBought) { // Only show quantity controls if not bought
+                    const minusButton = document.createElement('button');
+                    // Changed classes for minus buttons to match your example's logic
+                    minusButton.className = `quantity-minus w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 text-lg font-bold ${item.quantity === 1 ? 'bg-red-300' : 'bg-red-500 hover:bg-red-600'}`;
+                    minusButton.textContent = '-';
+                    minusButton.dataset.tooltip = item.quantity === 1 ? 'Неможливо зменшити кількість' : 'Зменшити кількість';
+                    minusButton.disabled = item.quantity === 1; // Disable if quantity is 1
+                    minusButton.addEventListener('click', () => {
+                        if (item.quantity > 1) {
+                            item.quantity--;
+                            renderShoppingList();
+                        }
+                    });
+                    quantityControls.appendChild(minusButton);
+
+                    const quantityDisplay = document.createElement('span');
+                    quantityDisplay.className = 'item-quantity-display w-8 text-center font-semibold bg-gray-200 text-gray-700 p-1 rounded'; /* Added Tailwind classes for consistency */
+                    quantityDisplay.textContent = item.quantity;
+                    quantityControls.appendChild(quantityDisplay);
+
+                    const plusButton = document.createElement('button');
+                    plusButton.className = 'quantity-plus w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors duration-200 text-lg font-bold';
+                    plusButton.textContent = '+';
+                    plusButton.dataset.tooltip = 'Збільшити кількість';
+                    plusButton.addEventListener('click', () => {
+                        item.quantity++;
+                        renderShoppingList();
+                    });
+                    quantityControls.appendChild(plusButton);
+                }
+                listItem.appendChild(quantityControls);
+
+                // Item actions (status and delete buttons)
+                const itemActions = document.createElement('div');
+                itemActions.className = 'item-actions flex gap-2 ml-auto';
+
+                const statusButton = document.createElement('button');
+                // Updated status button styling to match your provided CSS
+                statusButton.className = `status-button px-4 py-2 rounded-md transition-colors duration-200 text-sm font-semibold bg-gray-200 text-gray-800`;
+                statusButton.textContent = item.isBought ? 'Куплено' : 'Не куплено';
+                statusButton.dataset.tooltip = 'Змінити статус товару';
+                statusButton.addEventListener('click', () => {
+                    item.isBought = !item.isBought;
+                    renderShoppingList();
+                });
+                itemActions.appendChild(statusButton);
+
+                if (!item.isBought) { // Only show delete button if not bought
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-button w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200 text-lg font-bold';
+                    deleteButton.innerHTML = '&times;'; // HTML entity for 'x'
+                    deleteButton.dataset.tooltip = 'Видалити товар';
+                    deleteButton.addEventListener('click', () => {
+                        shoppingList.splice(index, 1); // Remove item from array
+                        renderShoppingList();
+                    });
+                    itemActions.appendChild(deleteButton);
+                }
+                listItem.appendChild(itemActions);
+
+                itemListContainer.appendChild(listItem);
+
+                // Render badges
+                const badge = document.createElement('span');
+                badge.className = `status-badge flex items-center gap-1 px-3 py-1 rounded-md text-sm font-semibold bg-gray-200 text-gray-800`; /* Using Tailwind for base badge style */
+
+                const badgeName = document.createElement('b');
+                badgeName.textContent = item.name;
+                if (item.isBought) {
+                    const sTag = document.createElement('s');
+                    sTag.appendChild(badgeName);
+                    badge.appendChild(sTag);
+                } else {
+                    badge.appendChild(badgeName);
+                }
+
+                const badgeQuantity = document.createElement('span');
+                badgeQuantity.className = 'badge-qty'; /* Custom class for orange circle */
+                badgeQuantity.textContent = item.quantity;
+                if (item.isBought) {
+                    const sTag = document.createElement('s');
+                    sTag.appendChild(badgeQuantity);
+                    badge.appendChild(sTag);
+                } else {
+                    badge.appendChild(badgeQuantity);
+                }
+
+                if (item.isBought) {
+                    boughtBadgesContainer.appendChild(badge);
+                } else {
+                    remainingBadgesContainer.appendChild(badge);
+                }
+            });
+            saveShoppingList(); // Save state after every render
+        }
+
+        // Event listener for adding new items
+        addItemButton.addEventListener('click', () => {
+            const itemName = newItemNameInput.value.trim();
+            if (itemName) {
+                shoppingList.push({ name: itemName, quantity: 1, isBought: false });
+                newItemNameInput.value = ''; // Clear input field
+                newItemNameInput.focus(); // Keep cursor in the input field
+                renderShoppingList();
+            }
+        });
+
+        // Allow adding item by pressing Enter key in the input field
+        newItemNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addItemButton.click();
+            }
+        });
+
+        // Initial rendering of the shopping list with example data or from local storage
+        window.onload = function() {
+            const storedList = localStorage.getItem('shoppingList');
+            if (storedList) {
+                shoppingList = JSON.parse(storedList);
+            } else {
+                // Example initial data if no stored list
+                shoppingList = [
+                    { name: "Помідори", quantity: 2, isBought: true },
+                    { name: "Печиво", quantity: 2, isBought: false },
+                    { name: "Сир", quantity: 1, isBought: false }
+                ];
+            }
+            renderShoppingList();
+        };
+    </script>
+</body>
+</html>
