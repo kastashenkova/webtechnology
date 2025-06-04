@@ -11,12 +11,22 @@ body {
     box-sizing: border-box; /* Враховувати padding у розмірах */
 }
 
+hr {
+    border: none;
+    border-top: 1px solid #e8e6e6; /* Light gray line */
+    margin-top: 10px; /* Відступ зверху від попереднього блоку */
+    margin-bottom: 10px; /* Відступ знизу до наступного блоку */
+    /* Нові властивості для розтягування від краю до краю */
+    margin-left: -20px; /* Компенсуємо padding лівої колонки */
+    margin-right: -20px; /* Компенсуємо padding правої колонки */
+}
+
 .container {
     display: flex;
     gap: 20px;
     width: 100%;
     max-width: 1200px;
-    background-color: #f0f2f5;
+    background-color: #bcbbbb;
     border-radius: 8px;
     padding: 0;
     box-sizing: border-box;
@@ -45,9 +55,7 @@ body {
 /* Секція додавання товару */
 .add-item-section {
     display: flex;
-    gap: 10px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 20px;
 }
 
@@ -55,23 +63,21 @@ body {
     flex-grow: 1;
     padding: 10px 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
     font-size: 1em;
 }
 
 .add-item-section .add-button {
-    background-color: #3463ff;
+    background-color: #3a7bfd;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 13px 23px;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s ease;
+    font-size: 1.3em;
+    transition: background-color 0.5s ease;
 }
 
 .add-item-section .add-button:hover {
-    background-color: #3463ff;
+    background-color: #3a7bfd;
 }
 
 /* Стилі для рядків товарів у лівій колонці */
@@ -86,7 +92,6 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
 }
 
 .item-row:last-child {
@@ -94,21 +99,22 @@ body {
 }
 
 .item-name-input {
-    
+    flex-grow: 1;
+    max-width: 23%;
     padding: 5px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff; /* Рамка за замовчуванням біла */
     border-radius: 4px;
     font-size: 0.95em;
     margin-right: 10px;
     box-sizing: border-box;
+    outline: none; /* Прибираємо стандартну рамку браузера */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Додаємо плавний перехід */
 }
 
-.item-name-display { /* Для статичного тексту, що не є інпутом */
-    flex-grow: 1;
-    padding: 5px 0;
-    font-size: 0.95em;
-    margin-right: 10px;
-    box-sizing: border-box;
+/* Стилі при фокусі (натисканні) */
+.item-name-input:focus {
+    border-color: #34b5ff; /* Колір рамки стає синім */
+    box-shadow: 0 0 0 2px rgba(30, 135, 255, 0.782); /* Додаємо легку синю тінь */
 }
 
 .item-quantity-display {
@@ -116,15 +122,22 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 1.1em;
-    color: #333;
     margin: 0 5px;
+    background-color: #e5e2e2; /* Сірий фон, як було */
+    color: #333; /* Темний текст, як було */
+    padding: 4px 4px;
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .quantity-controls {
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    justify-content: center;
+    min-width: 90px; /* Залишаємо, як є, для збереження вертикального стовпчика */
+    gap: 5px; /* Залишаємо, як є */
 }
+
 
 .quantity-controls button {
     width: 30px;
@@ -139,6 +152,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0; /* Запобігаємо зменшенню розміру кнопок */
 }
 
 .quantity-minus-first {
@@ -160,6 +174,8 @@ body {
 .item-actions {
     display: flex;
     gap: 5px;
+    justify-content: flex-end; /* Вирівнюємо кнопки дій до правого краю */
+    flex-shrink: 0;
 }
 
 .status-button {
@@ -181,7 +197,7 @@ body {
 }
 
 .status-button.bought {
-    background-color: #e5e2e2; /* Синій */
+    background-color: #e5e2e2; /* Сірий, як було */
 }
 
 .status-button.bought:hover {
@@ -207,11 +223,10 @@ body {
 /* Права колонка - секції */
 .section-block h3 {
     color: #333;
-    border-bottom: 1px solid #e5e2e2;
     padding-bottom: 10px;
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1.5em;
 }
 
 .badges-container {
@@ -233,7 +248,7 @@ body {
 }
 
 .status-badge .badge-qty {
-    background-color: #ff8800; /* Зелений фон для кількості */
+    background-color: #ff8800; /* Помаранчевий фон для кількості */
     color: white;
     width: 20px;
     height: 20px;
@@ -250,11 +265,11 @@ body {
 }
 
 .status-badge.bought {
-    background-color: #e5e2e2; 
+    background-color: #e5e2e2;
 }
 
 /* 4. Колонки: Адаптивність */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .container {
         flex-direction: column;
         padding: 10px;
@@ -380,7 +395,6 @@ body {
 
     /* Можливі стилі для надрукованого списку */
     .item-list li {
-        border-bottom: 1px solid #ddd;
         padding: 5px 0;
         display: flex; /* Переконатися, що вони відображаються як блоки */
         justify-content: space-between;

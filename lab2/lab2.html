@@ -15,10 +15,10 @@
                 <button class="add-button" data-tooltip="Додати новий товар"><b>Додати</b></button>
             </div>
 
-            <ul class="item-list">
-				
-				<li class="item-row">
-                    <span class="item-name-display"><s>Помідори</s></span>
+            <hr> <ul class="item-list">
+                
+                <li class="item-row">
+                    <input type="text" class="item-name-input" value="Помідори">
                     <div class="quantity-controls">
                         <span class="item-quantity-display">2</span>
                     </div>
@@ -28,8 +28,8 @@
                 </li>
 
 
-                <li class="item-row">
-                    <span class="item-name-display">Печиво</span>
+                <hr> <li class="item-row">
+                    <input type="text" class="item-name-input" value="Печиво">
                     <div class="quantity-controls">
                         <button class="quantity-minus-first" data-tooltip="Зменшити кількість">-</button>
                         <span class="item-quantity-display">2</span>
@@ -41,7 +41,7 @@
                     </div>
                 </li>
 
-                <li class="item-row">
+                <hr> <li class="item-row">
                     <input type="text" class="item-name-input" value="Сир">
                     <div class="quantity-controls">
                         <button class="quantity-minus-second" data-tooltip="Неможливо зменшити кількість">-</button>
@@ -57,17 +57,18 @@
         </section>
 
         <section class="right-column column">
+            
             <div class="section-block">
                 <h3>Залишилося</h3>
-                <div class="badges-container">
+                <hr> <div class="badges-container">
                     <span class="status-badge remaining"><b>Печиво</b><span class="badge-qty">2</span></span>
                     <span class="status-badge remaining"><b>Сир</b><span class="badge-qty">1</span></span>
                 </div>
             </div>
 
-            <div class="section-block">
+            <hr> <div class="section-block">
                 <h3>Куплено</h3>
-                <div class="badges-container">
+                <hr> <div class="badges-container">
                     <span class="status-badge bought"><b><s>Помідори</s></b><span class="badge-qty"><s>2</s></span></span>
                 </div>
             </div>
