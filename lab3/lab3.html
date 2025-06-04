@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик покупок</title>
+    <link rel="stylesheet" href="lab3.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="left-column column">
+            <div class="add-item-section">
+                <input type="text" id="newItemName" placeholder="Назва товару">
+                <button id="addItemButton" class="add-button" data-tooltip="Додати новий товар"><b>Додати</b></button>
+            </div>
+
+            <hr> <ul id="itemList" class="item-list">
+                </ul>
+        </section>
+
+        <section class="right-column column">
+            <div class="section-block">
+                <h3 class="section-title">Залишилося</h3>
+                <hr> <div id="remainingBadges" class="badges-container">
+                    </div>
+            </div>
+
+            <hr> <div class="section-block">
+                <h3 class="section-title">Куплено</h3>
+                <hr> <div id="boughtBadges" class="badges-container">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="badge-wrapper">
+        <div class="badge">
+            <span class="badge-text"><b>Buy List</b></span>
+            <span class="badge-hidden-text">
+                Created by:<br>KATERYNA
+            </span>
+        </div>
+    </div>
+
+    <script src="lab3.js"></script>
+</body>
+</html>
