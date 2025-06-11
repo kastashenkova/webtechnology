@@ -146,12 +146,18 @@ function renderShoppingList() {
 addItemButton.addEventListener('click', () => {
     const itemName = newItemNameInput.value.trim();
     if (itemName) {
+        const isDuplicate = shoppingList.some(item => item.name.toLowerCase() === itemName.toLowerCase());
+        if (isDuplicate) {
+            alert('Такий товар уже є в переліку!');
+            return;
+        }
         shoppingList.push({ name: itemName, quantity: 1, isBought: false });
-        newItemNameInput.value = ''; // Clear input field
-        newItemNameInput.focus(); // Keep cursor in the input field
+        newItemNameInput.value = '';
+        newItemNameInput.focus();
         renderShoppingList();
     }
 });
+
 
 newItemNameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
