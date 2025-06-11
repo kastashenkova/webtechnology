@@ -1,4 +1,3 @@
-// Array to store shopping list items
 let shoppingList = [];
 
 // DOM elements
@@ -19,19 +18,15 @@ function saveShoppingList() {
  * Renders the entire shopping list and updates the status badges.
  */
 function renderShoppingList() {
-    // Clear existing lists
     itemListContainer.innerHTML = '';
     remainingBadgesContainer.innerHTML = '';
     boughtBadgesContainer.innerHTML = '';
 
-    // Iterate through shoppingList array to render items
     shoppingList.forEach((item, index) => {
-        // Create list item (li) for each item
         const listItem = document.createElement('li');
-        listItem.className = `item-row ${index === shoppingList.length - 1 ? 'last-item' : ''}`; // Apply class for last item
-        listItem.dataset.index = index; // Store index for easy access
+        listItem.className = `item-row ${index === shoppingList.length - 1 ? 'last-item' : ''}`;
+        listItem.dataset.index = index;
 
-        // Item name input
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.value = item.name;
@@ -39,9 +34,8 @@ function renderShoppingList() {
         nameInput.readOnly = item.isBought;
         nameInput.addEventListener('change', (e) => {
             item.name = e.target.value;
-            renderShoppingList(); // Re-render to update badges if name changes
+            renderShoppingList();
         });
-        // Add click listener to allow editing when not bought
         nameInput.addEventListener('click', () => {
             if (!item.isBought) {
                 nameInput.focus();
@@ -49,16 +43,15 @@ function renderShoppingList() {
         });
         listItem.appendChild(nameInput);
 
-        // Quantity controls
         const quantityControls = document.createElement('div');
         quantityControls.className = 'quantity-controls';
 
-        if (!item.isBought) { // Only show quantity controls if not bought
+        if (!item.isBought) {
             const minusButton = document.createElement('button');
-            minusButton.className = `quantity-minus ${item.quantity === 1 ? 'disabled' : ''}`; // Add 'disabled' class for styling
+            minusButton.className = `quantity-minus ${item.quantity === 1 ? 'disabled' : ''}`;
             minusButton.textContent = '-';
             minusButton.dataset.tooltip = item.quantity === 1 ? 'Неможливо зменшити кількість' : 'Зменшити кількість';
-            minusButton.disabled = item.quantity === 1; // Disable if quantity is 1
+            minusButton.disabled = item.quantity === 1;
             minusButton.addEventListener('click', () => {
                 if (item.quantity > 1) {
                     item.quantity--;
@@ -84,7 +77,6 @@ function renderShoppingList() {
         }
         listItem.appendChild(quantityControls);
 
-        // Item actions (status and delete buttons)
         const itemActions = document.createElement('div');
         itemActions.className = 'item-actions';
 
@@ -98,13 +90,13 @@ function renderShoppingList() {
         });
         itemActions.appendChild(statusButton);
 
-        if (!item.isBought) { // Only show delete button if not bought
+        if (!item.isBought) { 
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
-            deleteButton.innerHTML = '&times;'; // HTML entity for 'x'
+            deleteButton.innerHTML = '&times;';
             deleteButton.dataset.tooltip = 'Видалити товар';
             deleteButton.addEventListener('click', () => {
-                shoppingList.splice(index, 1); // Remove item from array
+                shoppingList.splice(index, 1);
                 renderShoppingList();
             });
             itemActions.appendChild(deleteButton);
@@ -118,7 +110,6 @@ function renderShoppingList() {
             itemListContainer.appendChild(hrElement);
         }
 
-        // Render badges
         const badge = document.createElement('span');
         badge.className = `status-badge`;
 
@@ -149,10 +140,9 @@ function renderShoppingList() {
             remainingBadgesContainer.appendChild(badge);
         }
     });
-    saveShoppingList(); // Save state after every render
+    saveShoppingList();
 }
 
-// Event listener for adding new items
 addItemButton.addEventListener('click', () => {
     const itemName = newItemNameInput.value.trim();
     if (itemName) {
@@ -163,20 +153,17 @@ addItemButton.addEventListener('click', () => {
     }
 });
 
-// Allow adding item by pressing Enter key in the input field
 newItemNameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         addItemButton.click();
     }
 });
 
-// Initial rendering of the shopping list with example data or from local storage
 window.onload = function() {
     const storedList = localStorage.getItem('shoppingList');
     if (storedList) {
         shoppingList = JSON.parse(storedList);
     } else {
-        // Example initial data if no stored list
         shoppingList = [
             { name: "Помідори", quantity: 2, isBought: true },
             { name: "Печиво", quantity: 2, isBought: false },
