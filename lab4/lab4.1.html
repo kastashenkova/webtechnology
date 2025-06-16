@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="lab4.css">
+</head>
+<div class="container">
+        <h1>To-Do List</h1>
+
+        <div class="add-task-section">
+            <button class="button button-primary" onclick="openModal()">Додати</button>
+        </div>
+
+        <ul class="task-list">
+            <li class="task-item">
+                <span class="task-content"> </span>
+                <div class="task-actions">
+                    <button class="button button-edit">Редагувати</button>
+                    <button class="button button-delete">Видалити</button>
+                </div>
+            </li>
+            <li class="task-item completed">
+                <span class="task-content"> </span>
+                <div class="task-actions">
+                    <button class="button button-edit">Редагувати</button>
+                    <button class="button button-delete">Видалити</button>
+                </div>
+            </li>
+            <li class="task-item">
+                <span class="task-content"> </span>
+                <div class="task-actions">
+                    <button class="button button-edit">Редагувати</button>
+                    <button class="button button-delete">Видалити</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Додати завдання</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Назва завдання</label>
+                    <input type="text" id="taskTitle" placeholder="Наприклад: Завдання 1" name="taskTitle" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Дата виконання</label>
+                    <input type="date" id="taskDueDate" name="taskDueDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Пріоритет</label>
+                    <div class="priority-options">
+                        <input type="radio" id="priorityHigh" name="taskPriority" value="high">
+                        <label for="priorityHigh">Високий</label>
+                        <input type="radio" id="priorityMedium" name="taskPriority" value="medium" checked>
+                        <label for="priorityMedium">Середній</label>
+                        <input type="radio" id="priorityLow" name="taskPriority" value="low">
+                        <label for="priorityLow">Низький</label>
+                    </div>
+                </div>
+    
+                <div class="form-actions">
+                    <button type="submit" class="button button-primary">Додати завдання</button>
+                    <button type="button" class="button button-cancel" onclick="closeModal()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>
