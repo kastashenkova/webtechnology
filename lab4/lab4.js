@@ -20,18 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const specificDateFilterInput = document.getElementById('specificDateFilter');
     const applyDateFilterButton = document.getElementById('applyDateFilterButton');
 
-    // Оновлені початкові дані, які відповідають вашому HTML
-    let tasks = [
-        { id: '1', title: 'Завершити проєкт', dueDate: '2024-05-01', priority: 'medium', completed: false },
-        { id: '2', title: 'Прочитати книгу', dueDate: '2024-04-25', priority: 'low', completed: false },
-        { id: '3', title: 'Піти в спортзал', dueDate: '2024-04-23', priority: 'high', completed: false },
-        { id: '4', title: 'Записатися до лікаря', dueDate: '2024-04-20', priority: 'medium', completed: true }
-    ];
+    let tasks = [];
 
     let editingTaskElement = null;
     let currentActiveDateFilter = { type: 'all', referenceDate: null };
 
-    // --- Modal Functions ---
     function openModal(modalElement) {
         modalElement.style.visibility = 'visible';
         modalElement.style.opacity = '1';
@@ -44,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modalElement.querySelector('.modal-content').style.transform = 'translateY(20px)';
     }
 
-    // --- Date Formatting ---
     function formatDate(dateString) {
         const date = new Date(dateString);
         date.setDate(date.getDate() + 1); 
@@ -52,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return date.toLocaleDateString('uk-UA', options);
     }
 
-    // --- Task Uniqueness Check ---
     function isTaskUnique(title, dueDate, excludeTaskId = null) {
         const lowerCaseTitle = title.toLowerCase();
         return !tasks.some(task =>
@@ -62,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // --- Task Rendering and Management ---
     function createTaskElement(task) {
         const taskItem = document.createElement('div');
         taskItem.classList.add('task-item');
@@ -160,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Sorting Logic ---
     function sortTasks(tasksToSort, sortBy) {
         let sortedTasks = [...tasksToSort];
 
@@ -187,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return sortedTasks;
     }
 
-    // --- Filtering Logic (General) ---
     function filterTasks(allTasks, filterBy) {
         let filteredTasks = [...allTasks];
 
@@ -242,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTasks(currentTasks);
     }
 
-    // --- Event Listeners ---
     openAddTaskModalBtn.addEventListener('click', () => {
         openModal(taskModal);
         document.getElementById('modalTitle').textContent = 'Додати завдання';
@@ -334,15 +321,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalTask = tasks.find(task => task.id === taskId);
             const originalTitle = originalTask?.title;
             const originalDueDate = originalTask?.dueDate;
+            const originalPriority = originalTask?.priority;
+
             const newTitle = taskTextInput.value.trim();
 
             if (originalTitle !== newTitle) {
                 if (!isTaskUnique(newTitle, originalDueDate, taskId)) {
-                    alert('Завдання з такою назвою та датою вже існує. Будь ласка, оберіть унікальну комбінацію.');
+                    alert('Завдання з такою назвою та датою вже існує!');
                     taskTextInput.value = originalTitle;
                 } else {
                     if (originalTask) {
-                        originalTask.title = newTitle;
+                        updateTask(taskId, newTitle, originalDueDate, originalPriority);
                     }
                 }
             }
@@ -366,16 +355,14 @@ document.addEventListener('DOMContentLoaded', () => {
             openModal(dateFilterModal);
             dateFilterCategorySelect.value = currentActiveDateFilter.type;
             specificDateFilterInput.value = currentActiveDateFilter.referenceDate || '';
-
             specificDateInputGroup.style.display = 'block';
-            specificDateFilterInput.setAttribute('required', 'true'); // Всі опції потребують дату
+            specificDateFilterInput.setAttribute('required', 'true');
         } else {
             currentActiveDateFilter = { type: 'all', referenceDate: null };
             applyFiltersAndSort();
         }
     });
 
-    
     dateFilterCategorySelect.addEventListener('change', () => {
         specificDateInputGroup.style.display = 'block';
         specificDateFilterInput.setAttribute('required', 'true');
@@ -386,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const referenceDate = specificDateFilterInput.value;
 
         if (!referenceDate) {
-            alert('Будь ласка, оберіть дату, від якої відштовхуватися для фільтрації.');
+            alert('Будь ласка, оберіть дату!');
             return;
         }
 
@@ -395,5 +382,20 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFiltersAndSort();
     });
 
-    applyFiltersAndSort();
+    async function loadTasksFromJson() {
+        try {
+            const response = await fetch('tasks.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            tasks = await response.json();
+            applyFiltersAndSort();
+        } catch (error) {
+            console.error('Не вдалося завантажити завдання:', error);
+            alert('Не вдалося завантажити початкові завдання. Будь ласка, спробуйте пізніше.');
+            applyFiltersAndSort();
+        }
+    }
+
+    loadTasksFromJson();
 });
