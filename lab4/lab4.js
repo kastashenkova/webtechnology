@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const specificDateFilterInput = document.getElementById('specificDateFilter');
     const applyDateFilterButton = document.getElementById('applyDateFilterButton');
 
+    const openReportModalBtn = document.getElementById('openReportModal'); // New button
+    const reportModal = document.getElementById('reportModal');           // New modal
+    const closeReportModalBtn = document.getElementById('closeReportModal'); // New close button
+
     let tasks = [];
 
     let editingTaskElement = null;
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        date.setDate(date.getDate() + 1); 
+        date.setDate(date.getDate() + 1);
         const options = { day: 'numeric', month: 'long', year: 'numeric' };
         return date.toLocaleDateString('uk-UA', options);
     }
@@ -381,6 +385,60 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal(dateFilterModal);
         applyFiltersAndSort();
     });
+
+    // --- WebDataRocks Integration ---
+    openReportModalBtn.addEventListener('click', () => {
+        openModal(reportModal);
+        renderWebDataRocks();
+    });
+
+    closeReportModalBtn.addEventListener('click', () => closeModal(reportModal));
+    reportModal.addEventListener('click', (e) => {
+        if (e.target === reportModal) {
+            closeModal(reportModal);
+        }
+    });
+
+    function renderWebDataRocks() {
+        // Prepare data for WebDataRocks
+        const dataForReport = tasks.map(task => ({
+            Title: task.title,
+            'Due Date': task.dueDate,
+            Priority: task.priority === 'high' ? 'Високий' :
+                      task.priority === 'medium' ? 'Середній' : 'Низький',
+            Completed: task.completed ? 'Так' : 'Ні'
+        }));
+
+        const pivot = new WebDataRocks({
+            container: "#webdatarocks-container",
+            toolbar: true,
+            report: {
+                dataSource: {
+                    data: dataForReport
+                },
+                slice: {
+                    rows: [
+                        { uniqueName: "Priority" },
+                        { uniqueName: "Due Date" }
+                    ],
+                    columns: [
+                        { uniqueName: "Completed" }
+                    ],
+                    measures: [
+                        { uniqueName: "Title", aggregation: "count" }
+                    ]
+                },
+                options: {
+                    grid: {
+                        type: "flat" // Display data in a flat table layout
+                    }
+                }
+            },
+            // Configure localization for Ukrainian
+            localization: "https://cdn.webdatarocks.com/latest/localization/uk.json"
+        });
+    }
+    // --- End WebDataRocks Integration ---
 
     async function loadTasksFromJson() {
         try {

@@ -1,4 +1,5 @@
 :root {
+    /* Light Theme Variables */
     --primary-color: #ffffff;
     --primary1-color: #0d65df;
     --primary-dark-color: #e6e6e6;
@@ -18,7 +19,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacMacFont, "Roboto", Roboto, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: var(--background-color);
@@ -28,6 +29,7 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -40,12 +42,22 @@ body {
     box-sizing: border-box;
 }
 
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 h1 {
     text-align: center;
     color: var(--text-color);
     font-size: 28px;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     font-weight: 600;
+    flex-grow: 1;
 }
 
 .add-task-section {
@@ -61,6 +73,7 @@ h1 {
     border-radius: 10px;
     font-size: 16px;
     color: var(--text-color);
+    background-color: var(--background-color);
 }
 
 .add-task-input::placeholder {
@@ -74,15 +87,18 @@ h1 {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
 }
 
 .button-primary {
     background-color: var(--primary-color);
     border: 1px solid var(--border-color);
-    color: rgb(92, 92, 92);
+    color: var(--text-color);
 }
 
 .button-primary1 {
@@ -112,13 +128,8 @@ h1 {
     align-items: center;
     gap: 8px;
     font-size: 15px;
-    color: #555555;
+    color: var(--text-color);
     font-weight: 500;
-}
-
-.filter-by-date-button {
-    flex-shrink: 0;
-    margin-left: auto;
 }
 
 select {
@@ -127,7 +138,7 @@ select {
     border-radius: 8px;
     font-size: 15px;
     color: var(--text-color);
-    background-color: #ffffff;
+    background-color: var(--background-color);
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -143,8 +154,8 @@ select {
     padding: 12px;
     font-size: 16px;
     border-radius: 10px;
-    background-color: #ebebeb;
-    color: #333333;
+    background-color: var(--primary-dark-color);
+    color: var(--text-color);
     border-color: var(--border-color);
 }
 
@@ -184,10 +195,11 @@ select {
     position: relative;
     flex-shrink: 0;
     margin-top: 2px;
+    background-color: var(--card-background);
 }
 
 .task-checkbox:checked {
-    background-color: white;
+    background-color: var(--light-text-color);
     border-color: var(--light-text-color);
 }
 
@@ -199,7 +211,7 @@ select {
     transform: translate(-50%, -50%) rotate(45deg);
     width: 5px;
     height: 7px;
-    border: solid var(--light-text-color);
+    border: solid var(--card-background);
     border-width: 0 2px 2px 0;
 }
 
@@ -213,7 +225,6 @@ select {
     margin-right: 15px;
 }
 
-/* Стилі для інпуту назви завдання */
 .task-text-input {
     flex-grow: 1;
     border: none;
@@ -225,16 +236,14 @@ select {
     cursor: pointer;
 }
 
-/* Стилі для інпуту назви завдання, коли він активований для редагування */
 .task-text-input:focus {
     cursor: text;
 }
 
-/* Стилі для виконаних завдань */
-.task-checkbox:checked + .task-details .task-text-input {
+.task-item.completed .task-text-input {
     color: var(--light-text-color);
+    text-decoration: line-through;
 }
-
 
 .task-priority {
     font-size: 16px;
@@ -256,7 +265,7 @@ select {
 
 .task-priority.low {
     background-color: var(--low-priority-bg);
-    color: rgb(85, 85, 85);
+    color: var(--text-color);
 }
 
 .task-date {
@@ -275,7 +284,6 @@ select {
     margin-top: 0px;
 }
 
-/* Modal (Popup) Styles - застосовуються до обох модальних вікон */
 .modal {
     position: fixed;
     z-index: 100;
@@ -293,11 +301,6 @@ select {
     transition: visibility 0s, opacity 0.3s ease-in-out;
 }
 
-.modal:target {
-    visibility: visible;
-    opacity: 1;
-}
-
 .modal-content {
     background-color: var(--card-background);
     margin: auto;
@@ -312,7 +315,7 @@ select {
     transition: transform 0.3s ease-out;
 }
 
-.modal:target .modal-content {
+.modal-content.active {
     transform: translateY(0);
 }
 
@@ -361,138 +364,114 @@ select {
     border: 1px solid var(--border-color);
     border-radius: 10px;
     font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
     box-sizing: border-box;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 80px;
+.form-group input[type="text"]::placeholder {
+    color: var(--input-placeholder-color);
 }
 
-.form-actions {
+.priority-options {
     display: flex;
-    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.priority-options input[type="radio"] {
+    display: none;
+}
+
+.priority-options label {
+    background-color: var(--background-color);
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.priority-options input[type="radio"]:checked + label {
+    background-color: var(--primary1-color);
+    color: white;
+    border-color: var(--primary1-color);
+}
+
+.form-actions, .form-actions-date-filter {
+    display: flex;
+    justify-content: flex-end;
     gap: 10px;
     margin-top: 25px;
 }
 
-.form-actions .button {
-    flex: 1;
-    min-width: 0;
-    text-align: center;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 10px;
-}
-
 .button-cancel {
-    background-color: #ffffff;
-    border: 1.5px solid var(--border-color);
+    background-color: #f0f0f0;
     color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
 .button-cancel:hover {
     background-color: #e0e0e0;
 }
 
-.form-actions-date-filter {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 25px;
-}
-
-.form-actions-date-filter .button {
-    flex: unset;
-    min-width: unset;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.priority-options {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.priority-options input[type="radio"] {
-    margin-right: 0px;
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.priority-options label {
-    display: inline-flex;
-    align-items: center;
-    font-weight: 500;
-    font-size: 20px;
-    cursor: pointer;
-    color: var(--text-color);
-    margin-bottom: 0;
-}
-
-.priority-options label:hover {
-    color: var(--light-text-color);
-}
-
-#specificDateFilter {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
-.task-actions {
-    display: flex;
-    margin-left: 15px;
-    white-space: nowrap;
-    align-self: center;
-}
-
-/* Стилі для іконки видалення (смітника) */
 .delete-icon {
-    font-size: 20px;
     color: var(--delete-icon-color);
     cursor: pointer;
+    font-size: 18px;
     transition: color 0.2s ease;
+    padding: 5px;
 }
 
 .delete-icon:hover {
-    color: var(--secondary-color);
+    color: #ff3b30;
 }
 
+.report-modal-content {
+    max-width: 900px; /* Wider for the pivot table */
+    width: 95%;
+    height: 80%; /* Give it more height */
+    display: flex;
+    flex-direction: column;
+}
 
-@media (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
+#webdatarocks-container {
+    flex-grow: 1;
+    min-height: 300px; /* Minimum height for the pivot table */
+}
 
+/* WebDataRocks custom styling (optional, adjust as needed) */
+/* This ensures WebDataRocks respects your overall theme's text color */
+.webdatarocks-toolbar, .webdatarocks-grid {
+    color: var(--text-color);
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 480px) {
     .container {
-        margin: 0;
-        border-radius: 0;
-        box-shadow: none;
+        padding: 15px;
     }
 
     h1 {
         font-size: 24px;
-        margin-bottom: 20px;
     }
 
-    .add-task-input,
+    .add-task-section {
+        flex-direction: column;
+    }
+
     .add-task-button {
-        padding: 10px 15px;
-        font-size: 15px;
-        border-radius: 8px;
+        width: 100%;
     }
 
     .controls-section {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
+        gap: 10px;
     }
 
     .sort-by, .filter-by {
@@ -500,114 +479,54 @@ select {
         justify-content: space-between;
     }
 
-    .filter-by-date-button {
-        width: 100%;
-        text-align: center;
-        padding: 10px 15px;
-        font-size: 15px;
-        border-radius: 8px;
-        box-sizing: border-box;
-        margin-left: 0;
-    }
-
     select {
         flex-grow: 1;
-        border-radius: 8px;
-    }
-
-    #dateFilterCategorySelect {
-        padding: 10px;
-        font-size: 15px;
     }
 
     .task-item {
-        padding: 12px 0;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .task-checkbox {
-        margin-right: 10px;
+        margin-bottom: 10px;
     }
 
     .task-details {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-    }
-
-    .task-text-input {
-        font-size: 16px;
-        margin-bottom: 0;
-        white-space: normal;
-        overflow-wrap: break-word;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 
     .task-date {
-        font-size: 14px;
         margin-left: 0;
-        order: 1;
-    }
-
-    .task-meta {
-        flex-basis: 100%;
-        order: 2;
         margin-top: 5px;
-        justify-content: flex-start;
-    }
-
-    .task-priority {
-        font-size: 12px;
-        margin-right: 5px;
     }
 
     .task-actions {
-        flex-basis: auto;
-        justify-content: flex-end;
-        margin-top: 0;
-        margin-left: auto;
-        padding-top: 0;
-        border-top: none; 
-        align-self: center;
+        width: 100%;
+        text-align: right;
     }
 
-    .modal-content {
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    .modal h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        font-size: 15px;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="date"],
-    .form-group textarea {
-        padding: 10px;
-        font-size: 15px;
-        border-radius: 8px;
-    }
-
-    .form-actions {
+    .priority-options {
         flex-direction: column;
         gap: 10px;
     }
 
-    .form-actions .button {
-        width: 100%;
-        font-size: 15px;
-    }
-
-    .form-actions-date-filter {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .form-actions-date-filter .button {
+    .priority-options label {
         width: 100%;
         text-align: center;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .form-actions, .form-actions-date-filter {
+        flex-direction: column;
+    }
+
+    .form-actions button, .form-actions-date-filter button {
+        width: 100%;
     }
 }
