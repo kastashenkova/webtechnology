@@ -13,7 +13,7 @@
 
         <div class="add-task-section">
             <input type="text" placeholder="Додати нове завдання" class="add-task-input">
-            <a href="#taskModal" class="add-task-button button button-primary">Додати</a>
+            <button class="add-task-button button button-primary" id="openAddTaskModal">Додати</button>
         </div>
 
         <div class="controls-section">
@@ -29,7 +29,7 @@
                 <span>Фільтр:</span>
                 <select id="task-filter">
                     <option value="all">Усі</option>
-                    <option value="filterDate">Дата</option>
+                    <option value="filterDate">за датою</option>
                     <option value="completed">Виконані</option>
                     <option value="pending">Невиконані</option>
                     <option value="high">Високий пріоритет</option>
@@ -37,67 +37,14 @@
                     <option value="low">Низький пріоритет</option>
                 </select>
             </div>
-            <a href="#dateFilterModal" class="button button-primary filter-by-date-button">Фільтр за датою</a>
         </div>
 
-        <div class="task-list">
-            <div class="task-item">
-                <input type="checkbox" class="task-checkbox">
-                <div class="task-details">
-                    <input type="text" value="Завершити проєкт" class="task-text-input" readonly>
-                    <span class="task-date">1 травня 2024</span>
-                    <div class="task-meta">
-                        <span class="task-priority medium">Середній</span>
-                    </div>
-                </div>
-                <div class="task-actions">
-                    <span class="delete-icon"><i class="fas fa-trash-alt"></i></span>
-                </div>
+        <div class="task-list" id="taskList">
             </div>
-            <div class="task-item">
-                <input type="checkbox" class="task-checkbox">
-                <div class="task-details">
-                    <input type="text" value="Прочитати книгу" class="task-text-input" readonly>
-                    <span class="task-date">25 квітня 2024</span>
-                    <div class="task-meta">
-                        <span class="task-priority low">Низький</span>
-                    </div>
-                </div>
-                <div class="task-actions">
-                    <span class="delete-icon"><i class="fas fa-trash-alt"></i></span>
-                </div>
-            </div>
-            <div class="task-item">
-                <input type="checkbox" class="task-checkbox">
-                <div class="task-details">
-                    <input type="text" value="Піти в спортзал" class="task-text-input" readonly>
-                    <span class="task-date">23 квітня 2024</span>
-                    <div class="task-meta">
-                        <span class="task-priority high">Високий</span>
-                    </div>
-                </div>
-                <div class="task-actions">
-                    <span class="delete-icon"><i class="fas fa-trash-alt"></i></span>
-                </div>
-            </div>
-            <div class="task-item">
-                <input type="checkbox" class="task-checkbox">
-                <div class="task-details">
-                    <input type="text" value="Записатися до лікаря" class="task-text-input" readonly>
-                    <span class="task-date">20 квітня 2024</span>
-                    <div class="task-meta">
-                        <span class="task-priority medium">Середній</span>
-                    </div>
-                </div>
-                <div class="task-actions">
-                    <span class="delete-icon"><i class="fas fa-trash-alt"></i></span>
-                </div>
-            </div>
-        </div>
 
         <div id="taskModal" class="modal">
             <div class="modal-content">
-                <a href="#" class="close-button">&times;</a>
+                <button class="close-button" id="closeTaskModal">&times;</button>
                 <h2 id="modalTitle">Додати завдання</h2>
                 <form id="taskForm">
                     <div class="form-group">
@@ -121,7 +68,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="button button-primary1" id="submitTaskButton">Додати завдання</button>
-                        <a href="#" class="button button-cancel">Скасувати</a>
+                        <button type="button" class="button button-cancel" id="cancelTaskButton">Скасувати</button>
                     </div>
                 </form>
             </div>
@@ -129,7 +76,7 @@
 
         <div id="dateFilterModal" class="modal">
             <div class="modal-content">
-                <a href="#" class="close-button">&times;</a>
+                <button class="close-button" id="closeDateFilterModal">&times;</button>
                 <h2>Фільтр за датою</h2>
                 <div class="form-group">
                     <label for="dateFilterCategorySelect">Оберіть категорію:</label>
@@ -144,10 +91,11 @@
                     <input type="date" id="specificDateFilter" name="specificDateFilter">
                 </div>
                 <div class="form-actions-date-filter">
-                    <button type="button" class="button button-primary1">Застосувати</button>
+                    <button type="button" class="button button-primary1" id="applyDateFilterButton">Застосувати</button>
                 </div>
             </div>
         </div>
 
     </body>
+    <script src="lab4.js"></script>
 </html>

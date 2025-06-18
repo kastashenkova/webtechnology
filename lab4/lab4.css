@@ -61,8 +61,7 @@ h1 {
     border-radius: 10px;
     font-size: 16px;
     color: var(--text-color);
-    outline: none;
-    transition: border-color 0.2s;
+    /* transition: border-color 0.2s; */ /* Прибираємо transition для border-color, якщо його не змінюємо */
 }
 
 .add-task-input::placeholder {
@@ -70,7 +69,7 @@ h1 {
 }
 
 .add-task-input:focus {
-    border-color: var(--primary-color);
+    /* border-color: var(--primary-color); */ /* Видалено зміну кольору рамки при фокусі */
 }
 
 .button {
@@ -142,7 +141,7 @@ select {
     background-position: right 10px center;
     background-size: 12px;
     cursor: pointer;
-    outline: none;
+    /* transition: border-color 0.2s; */ /* Прибираємо transition для border-color */
 }
 
 #dateFilterCategorySelect {
@@ -153,15 +152,15 @@ select {
     background-color: #ebebeb;
     color: #333333;
     border-color: var(--border-color);
+    /* transition: border-color 0.3s ease; */ /* Прибираємо transition для border-color */
 }
 
 #dateFilterCategorySelect:focus {
-    border-color: var(--primary1-color);
-    outline: none;
+    /* border-color: var(--primary1-color); */ /* Видалено зміну кольору рамки при фокусі */
 }
 
 select:focus {
-    border-color: var(--primary-color);
+    /* border-color: var(--primary-color); */ /* Видалено зміну кольору рамки при фокусі */
 }
 
 .task-list {
@@ -197,7 +196,7 @@ select:focus {
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
-    outline: none;
+    /* outline: none; */ /* outline залишаємо, якщо його не було прибрано раніше */
     position: relative;
     flex-shrink: 0;
     margin-top: 2px;
@@ -234,18 +233,18 @@ select:focus {
 .task-text-input {
     flex-grow: 1;
     border: none;
-    outline: none;
     font-size: 17px;
     color: var(--text-color);
     background-color: transparent;
     padding: 0;
     margin: 0;
     cursor: pointer;
+    /* transition: border-bottom-color 0.2s; */ /* Прибираємо transition для border-color */
 }
 
 /* Стилі для інпуту назви завдання, коли він активований для редагування */
 .task-text-input:focus {
-    border-bottom: 1px solid var(--primary1-color); /* Підкреслення при фокусі */
+    /* border-bottom: 1px solid var(--primary1-color); */ /* Видалено зміну кольору рамки при фокусі */
     cursor: text;
 }
 
@@ -381,14 +380,13 @@ select:focus {
     border-radius: 10px;
     font-size: 16px;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    /* transition: border-color 0.3s ease; */ /* Прибираємо transition для border-color */
 }
 
 .form-group input[type="text"]:focus,
 .form-group input[type="date"]:focus,
 .form-group textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
+    /* border-color: var(--primary-color); */ /* Видалено зміну кольору рамки при фокусі */
 }
 
 .form-group textarea {
@@ -448,6 +446,7 @@ select:focus {
     margin-right: 0px;
     transform: scale(1.1);
     cursor: pointer;
+    /* outline: none; */ /* outline залишаємо, якщо його не було прибрано раніше */
 }
 
 .priority-options label {
@@ -471,12 +470,11 @@ select:focus {
     border-radius: 10px;
     font-size: 16px;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    /* transition: border-color 0.3s ease; */ /* Прибираємо transition для border-color */
 }
 
 #specificDateFilter:focus {
-    border-color: var(--primary-color);
-    outline: none;
+    /* border-color: var(--primary-color); */ /* Видалено зміну кольору рамки при фокусі */
 }
 
 .task-actions {
