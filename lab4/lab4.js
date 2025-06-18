@@ -20,11 +20,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const specificDateFilterInput = document.getElementById('specificDateFilter');
     const applyDateFilterButton = document.getElementById('applyDateFilterButton');
 
-    let tasks = [];
+    // Theme toggle elements
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
 
+    let tasks = [];
     let editingTaskElement = null;
     let currentActiveDateFilter = { type: 'all', referenceDate: null };
 
+    // --- Theme Management ---
+    function enableDarkTheme() {
+        body.classList.add('dark-theme');
+        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Світла тема';
+        localStorage.setItem('theme', 'dark');
+    }
+
+    function disableDarkTheme() {
+        body.classList.remove('dark-theme');
+        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> Темна тема';
+        localStorage.setItem('theme', 'light');
+    }
+
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            enableDarkTheme();
+        } else {
+            disableDarkTheme(); // Ensure light theme is default or applied if explicitly saved
+        }
+    }
+
+    // --- Modal Functions ---
     function openModal(modalElement) {
         modalElement.style.visibility = 'visible';
         modalElement.style.opacity = '1';
@@ -37,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalElement.querySelector('.modal-content').style.transform = 'translateY(20px)';
     }
 
+    // --- Date Formatting ---
     function formatDate(dateString) {
         const date = new Date(dateString);
         date.setDate(date.getDate() + 1); 
@@ -44,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return date.toLocaleDateString('uk-UA', options);
     }
 
+    // --- Task Uniqueness Check ---
     function isTaskUnique(title, dueDate, excludeTaskId = null) {
         const lowerCaseTitle = title.toLowerCase();
         return !tasks.some(task =>
@@ -53,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    // --- Task Rendering and Management ---
     function createTaskElement(task) {
         const taskItem = document.createElement('div');
         taskItem.classList.add('task-item');
@@ -150,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Sorting Logic ---
     function sortTasks(tasksToSort, sortBy) {
         let sortedTasks = [...tasksToSort];
 
@@ -176,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return sortedTasks;
     }
 
+    // --- Filtering Logic (General) ---
     function filterTasks(allTasks, filterBy) {
         let filteredTasks = [...allTasks];
 
@@ -189,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return filteredTasks;
     }
 
+    // --- Date Filtering Logic (Modified to use reference date) ---
     function filterTasksByReferenceDate(allTasks, filterType, referenceDateString) {
         if (filterType === 'all' || !referenceDateString) {
             return allTasks;
@@ -230,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTasks(currentTasks);
     }
 
+    // --- Event Listeners ---
     openAddTaskModalBtn.addEventListener('click', () => {
         openModal(taskModal);
         document.getElementById('modalTitle').textContent = 'Додати завдання';
@@ -381,6 +414,18 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal(dateFilterModal);
         applyFiltersAndSort();
     });
+
+    // Theme toggle event listener
+    themeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('dark-theme')) {
+            disableDarkTheme();
+        } else {
+            enableDarkTheme();
+        }
+    });
+
+    // Apply saved theme on load
+    applySavedTheme();
 
     async function loadTasksFromJson() {
         try {

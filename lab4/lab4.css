@@ -1,4 +1,5 @@
 :root {
+    /* Light Theme Variables */
     --primary-color: #ffffff;
     --primary1-color: #0d65df;
     --primary-dark-color: #e6e6e6;
@@ -17,8 +18,29 @@
     --delete-icon-color: #a0a0a0;
 }
 
+body.dark-theme {
+    /* Dark Theme Variables */
+    --primary-color: #2b2b2b; /* Кнопка Додати/Світла тема */
+    --primary1-color: #0d65df; /* Кнопка Додати завдання/Застосувати */
+    --primary-dark-color: #3f3f3f;
+    --primary1-dark-color: #005190;
+    --secondary-color: #ff6b30;
+    --background-color: #1a1a1a;
+    --card-background: #222222;
+    --text-color: #e0e0e0;
+    --light-text-color: #aaaaaa;
+    --border-color: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --input-placeholder-color: #777777;
+    --medium-priority-bg: #cc9900;
+    --low-priority-bg: #4a4a4a;
+    --divider-color: #333333;
+    --delete-icon-color: #aaaaaa;
+}
+
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacMacSystemFont, "Roboto", Roboto, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: var(--background-color);
@@ -40,11 +62,18 @@ body {
     box-sizing: border-box;
 }
 
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
 h1 {
     text-align: center;
     color: var(--text-color);
     font-size: 28px;
-    margin-bottom: 25px;
+    margin-bottom: 0; /* Changed from 25px */
     font-weight: 600;
 }
 
@@ -61,6 +90,7 @@ h1 {
     border-radius: 10px;
     font-size: 16px;
     color: var(--text-color);
+    background-color: var(--background-color); /* Added for dark theme input background */
 }
 
 .add-task-input::placeholder {
@@ -74,7 +104,7 @@ h1 {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Added color transition */
     text-decoration: none;
     display: inline-block;
 }
@@ -82,7 +112,7 @@ h1 {
 .button-primary {
     background-color: var(--primary-color);
     border: 1px solid var(--border-color);
-    color: rgb(92, 92, 92);
+    color: var(--text-color); /* Changed to use var */
 }
 
 .button-primary1 {
@@ -112,7 +142,7 @@ h1 {
     align-items: center;
     gap: 8px;
     font-size: 15px;
-    color: #555555;
+    color: var(--text-color); /* Changed to use var */
     font-weight: 500;
 }
 
@@ -127,15 +157,19 @@ select {
     border-radius: 8px;
     font-size: 15px;
     color: var(--text-color);
-    background-color: #ffffff;
+    background-color: var(--background-color); /* Changed to use var */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M5.5%208.5L10%2013l4.5-4.5H5.5z%22/%3E%3C/svg%3E');
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M5.5%208.5L10%2013l4.5-4.5H5.5z%22/%3E%3C/svg%3E'); /* Default for light theme */
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
     cursor: pointer;
+}
+
+body.dark-theme select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M5.5%208.5L10%2013l4.5-4.5H5.5z%22/%3E%3C/svg%3E'); /* Darker arrow for dark theme */
 }
 
 #dateFilterCategorySelect {
@@ -143,8 +177,8 @@ select {
     padding: 12px;
     font-size: 16px;
     border-radius: 10px;
-    background-color: #ebebeb;
-    color: #333333;
+    background-color: var(--primary-dark-color); /* Changed for dark theme */
+    color: var(--text-color); /* Changed for dark theme */
     border-color: var(--border-color);
 }
 
@@ -184,10 +218,11 @@ select {
     position: relative;
     flex-shrink: 0;
     margin-top: 2px;
+    background-color: var(--card-background); /* Added background for checkbox */
 }
 
 .task-checkbox:checked {
-    background-color: white;
+    background-color: var(--light-text-color); /* Changed to use var */
     border-color: var(--light-text-color);
 }
 
@@ -199,7 +234,7 @@ select {
     transform: translate(-50%, -50%) rotate(45deg);
     width: 5px;
     height: 7px;
-    border: solid var(--light-text-color);
+    border: solid var(--card-background); /* Changed checkmark color */
     border-width: 0 2px 2px 0;
 }
 
@@ -213,7 +248,6 @@ select {
     margin-right: 15px;
 }
 
-/* Стилі для інпуту назви завдання */
 .task-text-input {
     flex-grow: 1;
     border: none;
@@ -225,13 +259,11 @@ select {
     cursor: pointer;
 }
 
-/* Стилі для інпуту назви завдання, коли він активований для редагування */
 .task-text-input:focus {
     cursor: text;
 }
 
-/* Стилі для виконаних завдань */
-.task-checkbox:checked + .task-details .task-text-input {
+.task-item.completed .task-text-input {
     color: var(--light-text-color);
 }
 
@@ -256,7 +288,7 @@ select {
 
 .task-priority.low {
     background-color: var(--low-priority-bg);
-    color: rgb(85, 85, 85);
+    color: var(--text-color);
 }
 
 .task-date {
@@ -275,7 +307,6 @@ select {
     margin-top: 0px;
 }
 
-/* Modal (Popup) Styles - застосовуються до обох модальних вікон */
 .modal {
     position: fixed;
     z-index: 100;
@@ -362,6 +393,8 @@ select {
     border-radius: 10px;
     font-size: 16px;
     box-sizing: border-box;
+    background-color: var(--background-color); /* Added for dark theme input background */
+    color: var(--text-color); /* Added for dark theme input text color */
 }
 
 .form-group textarea {
@@ -386,13 +419,13 @@ select {
 }
 
 .button-cancel {
-    background-color: #ffffff;
+    background-color: var(--primary-color); /* Changed to use var */
     border: 1.5px solid var(--border-color);
-    color: var(--text-color);
+    color: var(--text-color); /* Changed to use var */
 }
 
 .button-cancel:hover {
-    background-color: #e0e0e0;
+    background-color: var(--primary-dark-color);
 }
 
 .form-actions-date-filter {
@@ -444,6 +477,8 @@ select {
     border-radius: 10px;
     font-size: 16px;
     box-sizing: border-box;
+    background-color: var(--background-color); /* Added for dark theme input background */
+    color: var(--text-color); /* Added for dark theme input text color */
 }
 
 .task-actions {
@@ -453,7 +488,6 @@ select {
     align-self: center;
 }
 
-/* Стилі для іконки видалення (смітника) */
 .delete-icon {
     font-size: 20px;
     color: var(--delete-icon-color);
@@ -479,6 +513,13 @@ select {
 
     h1 {
         font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .header-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
         margin-bottom: 20px;
     }
 
