@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const specificDateFilterInput = document.getElementById('specificDateFilter');
     const applyDateFilterButton = document.getElementById('applyDateFilterButton');
 
-    const openReportModalBtn = document.getElementById('openReportModal'); // New button
-    const reportModal = document.getElementById('reportModal');           // New modal
-    const closeReportModalBtn = document.getElementById('closeReportModal'); // New close button
+    const openReportModalBtn = document.getElementById('openReportModal');
+    const reportModal = document.getElementById('reportModal');
+    const closeReportModalBtn = document.getElementById('closeReportModal');
 
     let tasks = [];
 
@@ -386,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFiltersAndSort();
     });
 
+
     // --- WebDataRocks Integration ---
     openReportModalBtn.addEventListener('click', () => {
         openModal(reportModal);
@@ -430,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 options: {
                     grid: {
-                        type: "flat" // Display data in a flat table layout
+                        type: "flat"
                     }
                 }
             },
@@ -438,6 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localization: "https://cdn.webdatarocks.com/latest/localization/uk.json"
         });
     }
+
+
     // --- End WebDataRocks Integration ---
 
     async function loadTasksFromJson() {
