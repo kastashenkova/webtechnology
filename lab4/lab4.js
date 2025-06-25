@@ -401,45 +401,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderWebDataRocks() {
-        // Prepare data for WebDataRocks
-        const dataForReport = tasks.map(task => ({
-            Title: task.title,
-            'Due Date': task.dueDate,
-            Priority: task.priority === 'high' ? 'Високий' :
-                      task.priority === 'medium' ? 'Середній' : 'Низький',
-            Completed: task.completed ? 'Так' : 'Ні'
-        }));
+    const dataForReport = tasks.map(task => ({
+        Title: task.title,
+        'Due Date': task.dueDate,
+        Priority: task.priority === 'high' ? 'Високий' :
+                  task.priority === 'medium' ? 'Середній' : 'Низький',
+        Completed: task.completed ? 'Так' : 'Ні'
+    }));
 
-        const pivot = new WebDataRocks({
-            container: "#webdatarocks-container",
-            toolbar: true,
-            report: {
-                dataSource: {
-                    data: dataForReport
-                },
-                slice: {
-                    rows: [
-                        { uniqueName: "Priority" },
-                        { uniqueName: "Due Date" }
-                    ],
-                    columns: [
-                        { uniqueName: "Completed" }
-                    ],
-                    measures: [
-                        { uniqueName: "Title", aggregation: "count" }
-                    ]
-                },
-                options: {
-                    grid: {
-                        type: "flat"
-                    }
+    const pivot = new WebDataRocks({
+        container: "#webdatarocks-container",
+        toolbar: true,
+        report: {
+            dataSource: {
+                data: dataForReport
+            },
+            slice: {
+                rows: [
+                    {
+                        uniqueName: "Due Date.Year",
+                        sort: "asc" // Сортуємо роки за зростанням
+                    },
+                    {
+                        uniqueName: "Due Date.Month",
+                        sort: "asc" // Сортуємо місяці за зростанням
+                    },
+                    {
+                        uniqueName: "Due Date.Day",
+                        sort: "asc" // Сортуємо дні за зростанням
+                    },
+                    { uniqueName: "Priority" }
+                ],
+                columns: [
+                    { uniqueName: "Completed" }
+                ],
+                measures: [
+                    { uniqueName: "Title", aggregation: "count" }
+                ]
+            },
+            options: {
+                grid: {
+                    type: "flat"
                 }
             },
-            // Configure localization for Ukrainian
+            mapping: {
+                "Due Date": {
+                    type: "date"
+                }
+            },
+            formats: [{
+                name: "Date",
+                type: "date",
+                datePattern: "MMMM Sylvester"
+            }],
             localization: "https://cdn.webdatarocks.com/latest/localization/uk.json"
-        });
-    }
-
+        }
+    });
+}
 
     // --- End WebDataRocks Integration ---
 
