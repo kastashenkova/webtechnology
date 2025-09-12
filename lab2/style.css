@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    box-sizing: border-box; /* Враховувати padding у розмірах */
+    box-sizing: border-box;
 }
 
 hr {
